@@ -1,10 +1,12 @@
 ﻿{
   "name": "Pump Monitor API",
   "description": "API for the Pump Monitor",
-  "keywords": ["pumpp", "monitor", "buildpack"],
+  "keywords": [
+    "pump",
+    "monitor",
+    "buildpack"
+  ],
   "repository": "https://github.com/kayvanbree/pump-monitor-backend",
   "website": "https://pump-monitor.herokuapps.com",
-  "buildpacks": [{
-    "url": "https://github.com/zhongzf/aspnetcore-buildpack.git"
-  }]
+  "stack": "container"
 }
