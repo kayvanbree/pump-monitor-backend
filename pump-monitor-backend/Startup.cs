@@ -12,6 +12,8 @@ namespace pump_monitor_backend
 {
     public class Startup
     {
+        private readonly string AllowAllOrigins = "AllowAll";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,8 +24,6 @@ namespace pump_monitor_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
@@ -46,12 +46,16 @@ namespace pump_monitor_backend
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll",
+                options.AddPolicy(name: AllowAllOrigins,
                 builder => 
                     builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+
+            services.AddAuthorization();
+            
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,10 +65,14 @@ namespace pump_monitor_backend
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //app.UseHttpsRedirection();
+            else
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
+
+            app.UseCors(AllowAllOrigins);
 
             app.UseAuthentication();
 
