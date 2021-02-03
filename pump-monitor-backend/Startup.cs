@@ -31,6 +31,16 @@ namespace pump_monitor_backend
                 .AddSingleton(new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(int.Parse(Configuration["BINANCE_CACHE_EXPIRATION"]))));
             services.AddTransient<ISystemService, SystemService>();
             
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowAllOrigins,
+                    builder => 
+                        builder.WithOrigins(Configuration["APP_BASE_URL"])
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials());
+            });
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -45,16 +55,6 @@ namespace pump_monitor_backend
                     .RequireAuthenticatedUser()
                     .Build();
                 o.Filters.Add(new AuthorizeFilter());
-            });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: AllowAllOrigins,
-                builder => 
-                    builder.WithOrigins(Configuration["APP_BASE_URL"])
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
             });
 
             services.AddAuthorization();
