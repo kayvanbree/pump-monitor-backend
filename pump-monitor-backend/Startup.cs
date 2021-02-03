@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Okta.AspNetCore;
+using pump_monitor_backend.Models;
 
 namespace pump_monitor_backend
 {
@@ -26,13 +28,13 @@ namespace pump_monitor_backend
         {
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
-                    options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
-                    options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddOktaWebApi(new OktaWebApiOptions()
+                .AddJwtBearer(options =>
                 {
-                    OktaDomain = Configuration["Okta:OktaDomain"]
+                    options.Authority = Configuration["Okta:OktaDomain"] + "/oauth2/default";
+                    options.Audience = Configuration["Okta:Audience"];
+                    options.RequireHttpsMetadata = false;
                 });
 
             // Use [AllowAnonymous] for going into an endpoint raw
