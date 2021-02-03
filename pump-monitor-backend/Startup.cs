@@ -1,14 +1,15 @@
+using System;
 using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Okta.AspNetCore;
-using pump_monitor_backend.Models;
+using pump_monitor_backend.Services;
 
 namespace pump_monitor_backend
 {
@@ -26,6 +27,10 @@ namespace pump_monitor_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache()
+                .AddSingleton(new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(int.Parse(Configuration["BINANCE_CACHE_EXPIRATION"]))));
+            services.AddTransient<ISystemService, SystemService>();
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
