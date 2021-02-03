@@ -51,7 +51,7 @@ namespace pump_monitor_backend
             {
                 options.AddPolicy(name: AllowAllOrigins,
                 builder => 
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins(Configuration["APP_BASE_URL"])
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
