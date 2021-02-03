@@ -34,7 +34,7 @@ namespace pump_monitor_backend
                 })
                 .AddOktaWebApi(new OktaWebApiOptions()
                 {
-                    OktaDomain = Configuration["Okta:OktaDomain"],
+                    OktaDomain = Configuration["OKTA_CLIENT_ORGURL"],
                 });
 
             // Use [AllowAnonymous] for going into an endpoint raw
