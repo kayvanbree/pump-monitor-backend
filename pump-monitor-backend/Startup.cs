@@ -65,6 +65,8 @@ namespace pump_monitor_backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(AllowAllOrigins);
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -75,8 +77,6 @@ namespace pump_monitor_backend
             }
 
             app.UseRouting();
-
-            app.UseCors(AllowAllOrigins);
 
             app.UseAuthentication();
 
