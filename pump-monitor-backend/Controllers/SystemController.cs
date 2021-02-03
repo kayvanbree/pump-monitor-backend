@@ -9,6 +9,7 @@ namespace pump_monitor_backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("AllowAll")]
     public class SystemController : ControllerBase
     {
         private readonly ISystemService _systemService;
