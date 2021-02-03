@@ -23,7 +23,6 @@ namespace pump_monitor_backend.Controllers
 
         [HttpGet("marketinfo")]
         [HttpOptions]
-        [EnableCors]
         public async Task<ActionResult<IEnumerable<string>>> GetMarketInfo() =>
             Ok(await _systemService.GetMarketInfo());
     }
