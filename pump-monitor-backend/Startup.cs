@@ -31,7 +31,7 @@ namespace pump_monitor_backend
             {
                 options.AddPolicy(name: AllowAllOrigins,
                     builder => 
-                        builder.WithOrigins(Configuration["APP_BASE_URL"])
+                        builder.AllowAnyOrigin()
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials());
@@ -66,6 +66,7 @@ namespace pump_monitor_backend
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(AllowAllOrigins);
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
