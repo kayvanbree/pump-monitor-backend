@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using pump_monitor_backend.Services;
@@ -22,6 +23,7 @@ namespace pump_monitor_backend.Controllers
 
         [HttpGet("marketinfo")]
         [HttpOptions]
+        [EnableCors]
         public async Task<ActionResult<IEnumerable<string>>> GetMarketInfo() =>
             Ok(await _systemService.GetMarketInfo());
     }
