@@ -53,7 +53,8 @@ namespace pump_monitor_backend
                 builder => 
                     builder.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader()
+                        .AllowCredentials());
             });
 
             services.AddAuthorization();
