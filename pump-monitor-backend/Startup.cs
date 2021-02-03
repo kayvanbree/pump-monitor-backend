@@ -28,13 +28,13 @@ namespace pump_monitor_backend
         {
             services.AddAuthentication(options =>
                 {
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
+                    options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
+                    options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
                 })
-                .AddJwtBearer(options =>
+                .AddOktaWebApi(new OktaWebApiOptions()
                 {
-                    options.Authority = Configuration["Okta:OktaDomain"] + "/oauth2/default";
-                    options.Audience = Configuration["Okta:Audience"];
-                    options.RequireHttpsMetadata = false;
+                    OktaDomain = Configuration["Okta:OktaDomain"],
                 });
 
             // Use [AllowAnonymous] for going into an endpoint raw
