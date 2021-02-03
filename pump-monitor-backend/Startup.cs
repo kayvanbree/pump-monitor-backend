@@ -26,15 +26,11 @@ namespace pump_monitor_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
-                    options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
-                    options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
-                })
-                .AddOktaWebApi(new OktaWebApiOptions()
-                {
-                    OktaDomain = Configuration["OKTA_CLIENT_ORGURL"],
+                    options.Authority = Configuration["OKTA_OAUTH2_ISSUER"];
+                    options.Audience = Configuration["OKTA_DEFAULT_AUDIENCE"];
                 });
 
             // Use [AllowAnonymous] for going into an endpoint raw
