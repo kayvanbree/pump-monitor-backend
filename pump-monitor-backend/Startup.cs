@@ -36,8 +36,7 @@ namespace pump_monitor_backend
                                 Configuration["APP_BASE_URL"]
                                 )
                             .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials());
+                            .AllowAnyHeader());
             });
             
             services.AddMemoryCache()
