@@ -31,7 +31,10 @@ namespace pump_monitor_backend
             {
                 options.AddPolicy(name: AllowClient,
                     builder => 
-                        builder.AllowAnyOrigin()
+                        builder.WithOrigins(
+                                "http://localhost",
+                                Configuration["APP_BASE_URL"]
+                                )
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials());
@@ -49,13 +52,13 @@ namespace pump_monitor_backend
                 });
 
             // Use [AllowAnonymous] for going into an endpoint raw
-            services.AddMvc(o =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                o.Filters.Add(new AuthorizeFilter());
-            });
+            //services.AddMvc(o =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .Build();
+            //    o.Filters.Add(new AuthorizeFilter());
+            //});
 
             services.AddAuthorization();
             
