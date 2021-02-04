@@ -20,8 +20,13 @@ namespace pump_monitor_backend.Controllers
             _logger = logger;
             this._systemService = systemService;
         }
+        
+        [HttpOptions("marketinfo")]
+        public IActionResult OptionsMarketInfo()
+        {
+            return NoContent();
+        }
 
-        [EnableCors("AllowAll")]
         [HttpGet("marketinfo")]
         public async Task<ActionResult<BinanceExchangeInfo>> GetMarketInfo() =>
             Ok(await _systemService.GetMarketInfo());
