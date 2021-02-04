@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Binance.Net.Objects.Spot.MarketData;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace pump_monitor_backend.Controllers
         }
 
         [HttpGet("marketinfo")]
-        public async Task<ActionResult<IEnumerable<string>>> GetMarketInfo() =>
+        public async Task<ActionResult<BinanceExchangeInfo>> GetMarketInfo() =>
             Ok(await _systemService.GetMarketInfo());
     }
 }
