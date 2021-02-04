@@ -15,7 +15,7 @@ namespace pump_monitor_backend
 {
     public class Startup
     {
-        private readonly string AllowAllOrigins = "AllowAll";
+        private readonly string AllowClient = "AllowClient";
         
         public Startup(IConfiguration configuration)
         {
@@ -29,7 +29,7 @@ namespace pump_monitor_backend
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: AllowAllOrigins,
+                options.AddPolicy(name: AllowClient,
                     builder => 
                         builder.WithOrigins(
                                 "http://localhost:4200",
@@ -80,13 +80,13 @@ namespace pump_monitor_backend
             app.UseAuthentication();
             
             app.UseRouting();
-            app.UseCors(AllowAllOrigins);
+            app.UseCors(AllowClient);
             
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors(AllowClient);
             });
         }
     }
