@@ -31,7 +31,10 @@ namespace pump_monitor_backend
             {
                 options.AddPolicy(name: AllowAllOrigins,
                     builder => 
-                        builder.AllowAnyOrigin()
+                        builder.WithOrigins(
+                                "http://localhost:4200",
+                                "https://pump-monitor-staging.herokuapp.com"
+                            )
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials());
