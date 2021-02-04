@@ -25,11 +25,7 @@ namespace pump_monitor_backend.Services
             {
                 using (var client = new BinanceClient())
                 {
-                    //marketInfo = client.Spot.System.GetExchangeInfo();
-                    marketInfo = new MarketInfo()
-                    {
-                        Data = new[] {"MTHBTC"}
-                    };
+                    marketInfo = await client.Spot.System.GetExchangeInfoAsync();
                     cache.Set(MarketInfoCacheKey, marketInfo, cacheOptions);
                 }
             }
