@@ -16,4 +16,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1
 WORKDIR /app
 COPY --from=build /app ./
 ENV ASPNETCORE_URLS="http://*:$PORT"
+RUN echo $ASPNETCORE_URLS
 ENTRYPOINT ["dotnet", "pump-monitor-backend.dll"]
