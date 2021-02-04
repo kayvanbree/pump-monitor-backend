@@ -31,7 +31,7 @@ namespace pump_monitor_backend.Controllers
         [HttpGet("marketinfo")]
         public async Task<ActionResult<BinanceExchangeInfo>> GetMarketInfo()
         {
-            Console.Out.WriteLine("Getting market info");
+            _logger.Log(LogLevel.Debug,"Getting market info");
             return Ok(await _systemService.GetMarketInfo());
         }
     }
