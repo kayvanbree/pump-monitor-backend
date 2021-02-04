@@ -85,7 +85,10 @@ namespace pump_monitor_backend
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers().RequireCors(AllowAllOrigins);
+            });
         }
     }
 }
