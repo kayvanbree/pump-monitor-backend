@@ -1,0 +1,11 @@
+﻿version: '3'
+
+services:
+  pump-monitor-backend:
+    build: .
+    container_name: pump-monitor-backend
+    environment:
+      - PORT=8000
+    ports:
+      - "8080:8000"
+      
